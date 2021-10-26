@@ -54,7 +54,9 @@ class HomeFragment : Fragment() {
 
     private fun onItemClick(param: Stories) {
         Toast.makeText(context, param.title, Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.action_homeFragment_to_playerFragment)
+
+        val direction = HomeFragmentDirections.actionHomeFragmentToPlayerFragment().setVideoURL("https://vod-eurosport.akamaized.net/nogeo/2019/10/22/CHRONIQUE_FRITSCH_22102019_V1_22040825-1254400-2300-1024-576.mp4")
+        findNavController().navigate(direction)
     }
 
     private fun subscribeObservers() {

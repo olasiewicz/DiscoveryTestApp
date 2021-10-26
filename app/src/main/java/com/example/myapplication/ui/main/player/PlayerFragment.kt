@@ -2,6 +2,7 @@ package com.example.myapplication.ui.main.player
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,7 @@ class PlayerFragment : Fragment() {
     private var _binding: FragmentPlayerBinding? = null
     private val binding get() = _binding!!
     private var mPlayer: SimpleExoPlayer? = null
-
+    lateinit  var args: PlayerFragmentArgs
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +37,10 @@ class PlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val bundle = arguments ?: return
+
+        args = PlayerFragmentArgs.fromBundle(bundle)
 
     }
 
@@ -55,10 +60,13 @@ class PlayerFragment : Fragment() {
 
     private fun buildMediaSource(): MediaSource {
 
+
         val dataSourceFactory: DataSource.Factory = DefaultHttpDataSource.Factory()
 
         val mediaSource: MediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(MediaItem.fromUri("https://vod-eurosport.akamaized.net/nogeo/2019/10/22/CHRONIQUE_FRITSCH_22102019_V1_22040825-1254400-2300-1024-576.mp4"))
+            .createMediaSource(MediaItem.fromUri(args.videoURL))
+
+
 
         return mediaSource
     }
