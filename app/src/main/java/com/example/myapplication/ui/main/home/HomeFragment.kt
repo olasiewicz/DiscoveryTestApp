@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.main.home
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.model.Stories
 import com.example.myapplication.model.Videos
 import com.example.myapplication.ui.main.MainViewModel
 import com.example.myapplication.ui.main.state.MainStateEvent
@@ -26,6 +30,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -33,9 +38,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.homeButton.setOnClickListener(View.OnClickListener {
-//            findNavController().navigate(R.id.action_homeFragment_to_articleFragment2)
-//        })
         initRecyclerView()
         subscribeObservers()
 
@@ -45,13 +47,14 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         binding.homeRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@HomeFragment.context)
-            homeAdapter = HomeAdapter { param: Videos -> onItemClick(param) }
+            homeAdapter = HomeAdapter { param: Stories -> onItemClick(param) }
             adapter = homeAdapter
         }
     }
 
-    private fun onItemClick(param: Videos) {
-Toast.makeText(context, param.title, Toast.LENGTH_SHORT).show()
+    private fun onItemClick(param: Stories) {
+        Toast.makeText(context, param.title, Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_homeFragment_to_playerFragment)
     }
 
     private fun subscribeObservers() {
@@ -73,7 +76,7 @@ Toast.makeText(context, param.title, Toast.LENGTH_SHORT).show()
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    homeAdapter?.setMedia(it.listOfVideos)
+                    homeAdapter?.setMedia(it.listOfStories)
 
                 }
 
