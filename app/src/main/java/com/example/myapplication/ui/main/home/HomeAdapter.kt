@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.FragmentHomeItemBinding
 import com.example.myapplication.model.Videos
+import com.example.myapplication.util.DateUtils.Companion.prepareStringForData
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter(val onClicked: (Videos) -> Unit) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     private var listaVideos = listOf<Videos>()
 
@@ -19,7 +20,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     override fun getItemCount(): Int = listaVideos.size
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) =
-        holder.bind(listaVideos[position])
+        holder.bind(listaVideos[position], onClicked)
 
     fun setMedia(lista: List<Videos>) {
         this.listaVideos = lista
@@ -29,14 +30,14 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     inner class HomeViewHolder(val binding: FragmentHomeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Videos) {
+        fun bind(item: Videos, onClicked: (Videos) -> Unit) {
             with(binding) {
-                tvItem.text = item.title
+                tvItem.text = prepareStringForData(item.date)
+                tvItem.setOnClickListener { onClicked(item) }
 
             }
         }
 
     }
-
 
 }

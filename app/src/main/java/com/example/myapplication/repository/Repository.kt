@@ -2,12 +2,12 @@ package com.example.myapplication.repository
 
 import androidx.lifecycle.LiveData
 
-import com.codingwithmitch.mviexample.util.ApiSuccessResponse
-import com.codingwithmitch.mviexample.util.DataState
-import com.codingwithmitch.mviexample.util.GenericApiResponse
 import com.example.myapplication.api.RetrofitBuilder
 import com.example.myapplication.model.MediaW
 import com.example.myapplication.ui.main.state.MainViewState
+import com.example.myapplication.util.ApiSuccessResponse
+import com.example.myapplication.util.DataState
+import com.example.myapplication.util.GenericApiResponse
 
 object Repository {
 

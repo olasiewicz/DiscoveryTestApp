@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.codingwithmitch.mviexample.util.AbsentLiveData
-import com.codingwithmitch.mviexample.util.DataState
 import com.example.myapplication.repository.Repository
 import com.example.myapplication.ui.main.state.MainStateEvent
 import com.example.myapplication.ui.main.state.MainViewState
+import com.example.myapplication.util.AbsentLiveData
+import com.example.myapplication.util.DataState
 
 class MainViewModel : ViewModel() {
 

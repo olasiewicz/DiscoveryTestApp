@@ -7,5 +7,25 @@ data class Videos(
 
     @Expose
     @SerializedName("title")
-    val title: String
+    val title: String,
+
+    @Expose
+    @SerializedName("thumb")
+    val thumb: String,
+
+    @Expose
+    @SerializedName("url")
+    val url: String,
+
+    @Expose
+    @SerializedName("date")
+    val date: String,
+
+    @Expose
+    @SerializedName("sport")
+    val sport: Sport,
+
+    @Expose
+    @SerializedName("views")
+    val views: Int,
 )

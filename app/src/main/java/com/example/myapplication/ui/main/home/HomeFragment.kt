@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.main.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.model.Videos
 import com.example.myapplication.ui.main.MainViewModel
 import com.example.myapplication.ui.main.state.MainStateEvent
 
@@ -48,9 +45,13 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         binding.homeRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@HomeFragment.context)
-            homeAdapter = HomeAdapter()
+            homeAdapter = HomeAdapter { param: Videos -> onItemClick(param) }
             adapter = homeAdapter
         }
+    }
+
+    private fun onItemClick(param: Videos) {
+Toast.makeText(context, param.title, Toast.LENGTH_SHORT).show()
     }
 
     private fun subscribeObservers() {

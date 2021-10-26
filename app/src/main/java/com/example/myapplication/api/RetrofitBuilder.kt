@@ -1,7 +1,8 @@
 package com.example.myapplication.api
 
-import com.codingwithmitch.mviexample.util.Constants.BASE_URL
-import com.codingwithmitch.mviexample.util.LiveDataCallAdapterFactory
+
+import com.example.myapplication.util.Constants.BASE_URL
+import com.example.myapplication.util.LiveDataCallAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

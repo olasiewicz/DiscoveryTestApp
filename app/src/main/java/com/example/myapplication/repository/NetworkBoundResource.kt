@@ -2,12 +2,10 @@ package com.example.myapplication.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.codingwithmitch.mviexample.util.*
-import com.codingwithmitch.mviexample.util.Constants.TESTING_NETWORK_DELAY
+import com.example.myapplication.util.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -20,7 +18,6 @@ abstract class NetworkBoundResource<ResponseObject, ViewStateType> {
 
 
         GlobalScope.launch(IO){
-            delay(TESTING_NETWORK_DELAY)
 
             withContext(Main){
                 val apiResponse = createCall()
