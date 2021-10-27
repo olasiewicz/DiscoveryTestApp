@@ -6,12 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.FragmentHomeItemBinding
 import com.example.myapplication.model.Stories
 import com.example.myapplication.model.Videos
-import com.example.myapplication.util.DateUtils.Companion.prepareStringForData
 
-class HomeAdapter(val onClicked: (Any) -> Unit) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter(val onClicked: (Any) -> Unit) :
+    RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
-//    private var listaVideos = listOf<Videos>()
-    private var listaStories = listOf<Stories>()
     private var listaCala = listOf<Any>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -30,7 +28,6 @@ class HomeAdapter(val onClicked: (Any) -> Unit) : RecyclerView.Adapter<HomeAdapt
         notifyDataSetChanged()
     }
 
-
     inner class HomeViewHolder(val binding: FragmentHomeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Any, onClicked: (Any) -> Unit) {
@@ -41,15 +38,13 @@ class HomeAdapter(val onClicked: (Any) -> Unit) : RecyclerView.Adapter<HomeAdapt
                     tvItem.setOnClickListener { onClicked(item) }
                 }
 
-                if(item is Stories) {
+                if (item is Stories) {
                     tvItem.text = (item.author)
                     tvItem.setOnClickListener { onClicked(item) }
                 }
-
 
             }
         }
 
     }
-
 }

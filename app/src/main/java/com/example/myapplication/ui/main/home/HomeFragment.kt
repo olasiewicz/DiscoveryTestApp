@@ -5,22 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
-import com.example.myapplication.model.MediaW
 import com.example.myapplication.model.Stories
 import com.example.myapplication.model.Videos
 import com.example.myapplication.ui.main.MainViewModel
 import com.example.myapplication.ui.main.state.MainStateEvent
-import com.example.myapplication.util.DateUtils
-import com.example.myapplication.util.DateUtils.Companion.getListOfStories
-import com.example.myapplication.util.DateUtils.Companion.ustawDate
 
 class HomeFragment : Fragment() {
 
@@ -57,7 +51,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun onItemClick(param: Any) {
-        val direction = HomeFragmentDirections.actionHomeFragmentToPlayerFragment().setVideoURL("https://vod-eurosport.akamaized.net/nogeo/2019/10/22/CHRONIQUE_FRITSCH_22102019_V1_22040825-1254400-2300-1024-576.mp4")
+
+        when (param) {
+            is Videos -> navigateToPlayerFragment(param.url)
+            is Stories -> navigateToArticleFragment()
+        }
+    }
+
+    private fun navigateToArticleFragment() {
+
+    }
+
+    private fun navigateToPlayerFragment(url: String) {
+        val direction = HomeFragmentDirections.actionHomeFragmentToPlayerFragment()
+            .setVideoURL(url)
         findNavController().navigate(direction)
     }
 
@@ -69,27 +76,13 @@ class HomeFragment : Fragment() {
             // Handle Loading and Message
             // dataStateHandler.onDataStateChange(dataState)
 
-            // handle Data<T>
             dataState.data?.let { mainViewState ->
                 mainViewState.media?.let { it ->
-                    // set BlogPosts data
-                      viewModel.setMedia(it)
-
-
-
-
-
-//
-
-
-
+                    viewModel.setMedia(it)
 
                 }
-
             }
         })
-
-
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
             viewState.media?.let {
@@ -98,14 +91,9 @@ class HomeFragment : Fragment() {
 
 
                 homeAdapter?.setMedia(it)
-
             }
-
         })
     }
-
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

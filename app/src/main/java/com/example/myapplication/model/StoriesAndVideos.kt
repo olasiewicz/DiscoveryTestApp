@@ -4,7 +4,7 @@ package com.example.myapplication.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class MediaW(
+data class StoriesAndVideos(
 
     @Expose
     @SerializedName("videos")
