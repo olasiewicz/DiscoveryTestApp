@@ -19,7 +19,7 @@ data class Videos(
 
     @Expose
     @SerializedName("date")
-    val date: String,
+    var date: String,
 
     @Expose
     @SerializedName("sport")

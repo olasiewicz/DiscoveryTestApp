@@ -8,9 +8,9 @@ data class MediaW(
 
     @Expose
     @SerializedName("videos")
-    val listOfVideos: List<Videos>,
+    val listOfVideos: MutableList<Videos>,
 
     @Expose
     @SerializedName("stories")
-    val listOfStories: List<Stories>
+    val listOfStories: MutableList<Stories>
 )

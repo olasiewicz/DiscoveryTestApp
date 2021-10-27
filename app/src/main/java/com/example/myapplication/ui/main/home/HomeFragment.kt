@@ -13,10 +13,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.model.MediaW
 import com.example.myapplication.model.Stories
 import com.example.myapplication.model.Videos
 import com.example.myapplication.ui.main.MainViewModel
 import com.example.myapplication.ui.main.state.MainStateEvent
+import com.example.myapplication.util.DateUtils
+import com.example.myapplication.util.DateUtils.Companion.getListOfStories
+import com.example.myapplication.util.DateUtils.Companion.ustawDate
 
 class HomeFragment : Fragment() {
 
@@ -47,14 +51,12 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         binding.homeRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@HomeFragment.context)
-            homeAdapter = HomeAdapter { param: Stories -> onItemClick(param) }
+            homeAdapter = HomeAdapter { param: Any -> onItemClick(param) }
             adapter = homeAdapter
         }
     }
 
-    private fun onItemClick(param: Stories) {
-        Toast.makeText(context, param.title, Toast.LENGTH_SHORT).show()
-
+    private fun onItemClick(param: Any) {
         val direction = HomeFragmentDirections.actionHomeFragmentToPlayerFragment().setVideoURL("https://vod-eurosport.akamaized.net/nogeo/2019/10/22/CHRONIQUE_FRITSCH_22102019_V1_22040825-1254400-2300-1024-576.mp4")
         findNavController().navigate(direction)
     }
@@ -69,30 +71,41 @@ class HomeFragment : Fragment() {
 
             // handle Data<T>
             dataState.data?.let { mainViewState ->
-                mainViewState.media?.let {
+                mainViewState.media?.let { it ->
                     // set BlogPosts data
-                    //  viewModel.setBlogListData(it)
-                    Toast.makeText(
-                        context?.applicationContext,
-                        it.listOfVideos.get(0).title,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                      viewModel.setMedia(it)
 
-                    homeAdapter?.setMedia(it.listOfStories)
+
+
+
+
+//
+
+
+
 
                 }
 
             }
         })
 
+
+
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
             viewState.media?.let {
                 // set BlogPosts to RecyclerView
                 println("DEBUG: Setting blog posts to RecyclerView: ${viewState.media}")
+
+
+                homeAdapter?.setMedia(it)
+
             }
 
         })
     }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

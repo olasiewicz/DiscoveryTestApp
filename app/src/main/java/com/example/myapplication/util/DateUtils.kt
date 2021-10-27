@@ -1,5 +1,8 @@
 package com.example.myapplication.util
 
+import com.example.myapplication.model.Stories
+import com.example.myapplication.model.Videos
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -7,11 +10,23 @@ class DateUtils {
 
     companion object {
 
-        fun prepareStringForData(inputString: String): String {
+        fun ustawDate(data: String): String {
 
-            val longValue = inputString.replace(".", "").toLong()
+            return if (data.length < 14) {
+                data + "0"
+            } else {
+                data
+            }
+        }
 
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        fun prepareStringForData(inputDouble: String): String {
+
+            val test = ustawDate(inputDouble)
+
+
+            val longValue = test.replace(".", "").toLong()
+
+            val sdf = SimpleDateFormat("yyyy-MM-dd, hh:mm", Locale.ENGLISH)
             try {
                 val date = sdf.format(Date(longValue))
                 return date
@@ -19,6 +34,40 @@ class DateUtils {
                 throw Exception(e)
             }
         }
+
+
+
+
+
+        fun getListOfStories(inputList: List<Stories>) : MutableList<Stories> {
+            var outputListStories = mutableListOf<Stories>()
+
+            inputList.forEach() {
+                it.date = DateUtils.prepareStringForData(it.date)
+                outputListStories.add(it)
+            }
+
+            outputListStories.sortByDescending { it.date }
+
+            return outputListStories
+        }
+
+        fun getListOfVideos(inputList: List<Videos>) : MutableList<Videos> {
+            var outputListVideos = mutableListOf<Videos>()
+
+            inputList.forEach() {
+                it.date = DateUtils.prepareStringForData(it.date)
+                outputListVideos.add(it)
+            }
+
+            outputListVideos.sortByDescending { it.date }
+
+            return outputListVideos
+        }
+
+
+
+
     }
 
 

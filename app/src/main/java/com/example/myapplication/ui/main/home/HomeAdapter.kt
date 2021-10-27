@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.FragmentHomeItemBinding
 import com.example.myapplication.model.Stories
 import com.example.myapplication.model.Videos
+import com.example.myapplication.util.DateUtils.Companion.prepareStringForData
 
-class HomeAdapter(val onClicked: (Stories) -> Unit) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter(val onClicked: (Any) -> Unit) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
-    private var listaVideos = listOf<Videos>()
+//    private var listaVideos = listOf<Videos>()
     private var listaStories = listOf<Stories>()
+    private var listaCala = listOf<Any>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,23 +20,32 @@ class HomeAdapter(val onClicked: (Stories) -> Unit) : RecyclerView.Adapter<HomeA
         return HomeViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = listaStories.size
+    override fun getItemCount(): Int = listaCala.size
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) =
-        holder.bind(listaStories[position], onClicked)
+        holder.bind(listaCala[position], onClicked)
 
-    fun setMedia(lista: List<Stories>) {
-        this.listaStories = lista
+    fun setMedia(lista: List<Any>) {
+        this.listaCala = lista
         notifyDataSetChanged()
     }
 
 
     inner class HomeViewHolder(val binding: FragmentHomeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Stories, onClicked: (Stories) -> Unit) {
+        fun bind(item: Any, onClicked: (Any) -> Unit) {
             with(binding) {
-                tvItem.text = item.title
-                tvItem.setOnClickListener { onClicked(item) }
+
+                if (item is Videos) {
+                    tvItem.text = (item.date)
+                    tvItem.setOnClickListener { onClicked(item) }
+                }
+
+                if(item is Stories) {
+                    tvItem.text = (item.author)
+                    tvItem.setOnClickListener { onClicked(item) }
+                }
+
 
             }
         }

@@ -18,7 +18,7 @@ data class Stories(
 
     @Expose
     @SerializedName("date")
-    val date: String,
+    var date: String,
 
     @Expose
     @SerializedName("author")
