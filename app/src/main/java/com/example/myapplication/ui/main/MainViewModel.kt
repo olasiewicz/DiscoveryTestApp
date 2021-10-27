@@ -48,41 +48,17 @@ class MainViewModel : ViewModel() {
 
     fun setMedia(media: List<Any>) {
 
-
         val update = getCurrentViewStateOrNew()
-
-
-//
-//        val size = if (outListV.size < outListaS.size)  outListV.size else outListaS.size
-//
-//        val restSize = outListV.size + outListaS.size - size
-//
-//
-//        val listaCala = mutableListOf<Any>()
-//
-//        for (i in 0 until size) {
-//            listaCala.add{ outListaS[i] }
-//            listaCala.add( outListV[i] )
-//        }
-//
-//        for (i in 0 until restSize) {
-//            if (outListV.size > outListaS.size) {
-//                listaCala.add(outListV[i])
-//            } else {
-//                listaCala.add(outListaS[i])
-//            }
-//        }
-
         update.media = media
 
-            _viewState.value = update
-}
+        _viewState.value = update
+    }
 
-fun getCurrentViewStateOrNew(): MainViewState {
-    val value = viewState.value?.let {
-        it
-    } ?: MainViewState()
-    return value
-}
+    fun getCurrentViewStateOrNew(): MainViewState {
+        val value = viewState.value?.let {
+            it
+        } ?: MainViewState()
+        return value
+    }
 
 }

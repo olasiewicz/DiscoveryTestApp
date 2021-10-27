@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -73,27 +74,39 @@ class HomeFragment : Fragment() {
 
             println("DEBUG: DataState: ${dataState}")
 
-            // Handle Loading and Message
-            // dataStateHandler.onDataStateChange(dataState)
+            displayProgressBar(dataState.loading)
+
+            dataState.message?.let{ message ->
+                    showToast(message)
+                }
 
             dataState.data?.let { mainViewState ->
                 mainViewState.media?.let { it ->
                     viewModel.setMedia(it)
-
                 }
             }
         })
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
             viewState.media?.let {
-                // set BlogPosts to RecyclerView
                 println("DEBUG: Setting blog posts to RecyclerView: ${viewState.media}")
-
-
                 homeAdapter?.setMedia(it)
             }
         })
     }
+
+    private fun displayProgressBar(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun showToast(message: String){
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
