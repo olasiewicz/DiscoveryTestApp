@@ -55,12 +55,20 @@ class HomeFragment : Fragment() {
 
         when (param) {
             is Videos -> navigateToPlayerFragment(param.url)
-            is Stories -> navigateToArticleFragment()
+            is Stories -> navigateToArticleFragment(param)
         }
     }
 
-    private fun navigateToArticleFragment() {
+    private fun navigateToArticleFragment(param: Stories) {
+        val direction = HomeFragmentDirections.actionHomeFragmentToArticleFragment2()
+            .setTitle(param.title)
+            .setAuthor(param.author)
+            .setImage(param.image)
+            .setTeaser(param.teaser)
+            .setSportName(param.sport.name)
+            .setDate(param.date)
 
+        findNavController().navigate(direction)
     }
 
     private fun navigateToPlayerFragment(url: String) {
