@@ -63,7 +63,7 @@
                 android:id="@+id/tv_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/authorStyle"
+                style="@style/authorArticleStyle"
                 android:layout_marginStart="2dp"
                 android:text="@string/author_article"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_by"

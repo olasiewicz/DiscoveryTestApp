@@ -5,5 +5,7 @@
     <string name="by_article">By</string>
     <string name="author_article">author</string>
     <string name="fake_date_article">21-04-20, 11:25</string>
+    <string name="home_dash">-</string>
+    <string name="views_home">views</string>
 
 </resources>

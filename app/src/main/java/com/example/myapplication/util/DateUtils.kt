@@ -20,7 +20,7 @@ object DateUtils {
     private fun prepareStringForData(inputDouble: String): String {
         val test = checkDateLenght(inputDouble)
         val longValue = test.replace(".", "").toLong()
-        val sdf = SimpleDateFormat("yyyy-MM-dd, hh:mm", Locale.ENGLISH)
+        val sdf = SimpleDateFormat("yyyy.MM.dd, hh:mm", Locale.ENGLISH)
         try {
             val date = sdf.format(Date(longValue))
             return date

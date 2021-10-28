@@ -25,7 +25,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="authorStyle">
+    <style name="authorArticleStyle">
         <item name="android:textColor">@color/teal_700</item>
         <item name="android:textSize">13sp</item>
     </style>
@@ -40,6 +40,12 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/layout_bg</item>
+    </style>
+
+    <style name="authorHomeStyle" parent="authorArticleStyle">
+        <item name="android:textColor">@color/light_gray</item>
+        <item name="android:layout_marginEnd">2dp</item>
+
     </style>
 
 </resources>

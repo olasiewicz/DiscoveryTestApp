@@ -52,7 +52,7 @@ class ArticleFragment : Fragment() {
             tvTeaser.text = args.teaser
             tvSport.text = args.sportName
             imageBack.setOnClickListener{
-               findNavController().navigate(ArticleFragmentDirections.actionArticleFragment2ToHomeFragment())
+               findNavController().popBackStack()
             }
             imageShare.setOnClickListener {
                 val intentShare = Intent(Intent(ACTION_SEND))
