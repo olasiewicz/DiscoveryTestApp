@@ -4,22 +4,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeItemBinding
 import com.example.myapplication.model.Stories
 import com.example.myapplication.model.Videos
 
-class HomeAdapter(val glide: RequestManager, val requestOptions: RequestOptions, val onClicked: (Any) -> Unit) :
+class HomeAdapter(
+    val glide: RequestManager,
+    val requestOptions: RequestOptions,
+    val onClicked: (Any) -> Unit
+) :
     RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     private var listOfStoriesAndVideos = listOf<Any>()
-//    private val requestOptions = RequestOptions
-//        .placeholderOf(R.mipmap.ic_launcher)
-//        .error(R.mipmap.ic_launcher)
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val inflater = LayoutInflater.from(parent.context)

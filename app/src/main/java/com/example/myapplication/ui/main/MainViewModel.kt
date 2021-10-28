@@ -67,5 +67,4 @@ constructor(
         } ?: MainViewState()
         return value
     }
-
 }
