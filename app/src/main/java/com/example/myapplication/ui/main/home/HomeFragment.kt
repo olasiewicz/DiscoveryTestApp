@@ -7,22 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.example.myapplication.model.Stories
 import com.example.myapplication.model.Videos
 import com.example.myapplication.ui.main.MainViewModel
 import com.example.myapplication.ui.main.state.MainStateEvent
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by activityViewModels()
     private var homeAdapter: HomeAdapter? = null
+    @Inject
+    lateinit var glide: RequestManager
+    @Inject
+    lateinit var requestOptions: RequestOptions
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +55,7 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         binding.homeRecyclerView.apply {
             layoutManager = LinearLayoutManager(this@HomeFragment.context)
-            homeAdapter = HomeAdapter { param: Any -> onItemClick(param) }
+            homeAdapter = HomeAdapter(glide, requestOptions, { param: Any -> onItemClick(param) })
             adapter = homeAdapter
         }
     }
@@ -84,9 +93,9 @@ class HomeFragment : Fragment() {
 
             displayProgressBar(dataState.loading)
 
-            dataState.message?.let{ message ->
-                    showToast(message)
-                }
+            dataState.message?.let { message ->
+                showToast(message)
+            }
 
             dataState.data?.let { mainViewState ->
                 mainViewState.media?.let { it ->
@@ -111,10 +120,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showToast(message: String){
+    private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

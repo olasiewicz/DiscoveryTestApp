@@ -9,19 +9,27 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentArticleBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.ActivityRetainedScoped
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ArticleFragment : Fragment() {
 
     private var _binding: FragmentArticleBinding? = null
     private val binding get() = _binding!!
-    lateinit  var args: ArticleFragmentArgs
+    lateinit var args: ArticleFragmentArgs
 
-    private val requestOptions = RequestOptions
-        .placeholderOf(R.drawable.default_image)
-        .error(R.drawable.default_image)
+    @Inject
+    lateinit var glide: RequestManager
+
+    @Inject
+    lateinit var requestOptions: RequestOptions
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +48,7 @@ class ArticleFragment : Fragment() {
     }
 
     private fun initWidgets(args: ArticleFragmentArgs) {
-        Glide.with(this)
+        glide
             .setDefaultRequestOptions(requestOptions)
             .load(args.image)
             .into(binding.imageArticle)
@@ -51,20 +59,19 @@ class ArticleFragment : Fragment() {
             tvDate.text = args.date
             tvTeaser.text = args.teaser
             tvSport.text = args.sportName
-            imageBack.setOnClickListener{
-               findNavController().popBackStack()
+            imageBack.setOnClickListener {
+                findNavController().popBackStack()
             }
             imageShare.setOnClickListener {
                 val intentShare = Intent(Intent(ACTION_SEND))
                 intentShare.apply {
                     type = "text/plant"
-                    putExtra(Intent.EXTRA_SUBJECT,"Share")
+                    putExtra(Intent.EXTRA_SUBJECT, "Share")
                 }
                 startActivity(Intent.createChooser(intentShare, "Sharing"))
             }
         }
     }
-
 
 
     override fun onDestroyView() {

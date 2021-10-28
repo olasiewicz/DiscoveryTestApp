@@ -9,8 +9,15 @@ import com.example.myapplication.ui.main.state.MainStateEvent
 import com.example.myapplication.ui.main.state.MainViewState
 import com.example.myapplication.util.AbsentLiveData
 import com.example.myapplication.util.DataState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel
+@Inject
+constructor(
+    private val repository: Repository
+) : ViewModel() {
 
     private val _stateEvent: MutableLiveData<MainStateEvent> = MutableLiveData()
     private val _viewState: MutableLiveData<MainViewState> = MutableLiveData()
@@ -31,7 +38,7 @@ class MainViewModel : ViewModel() {
         when (stateEvent) {
 
             is MainStateEvent.GetMedia -> {
-                return Repository.getMedia()
+                return repository.getMedia()
             }
 
             is MainStateEvent.None -> {
