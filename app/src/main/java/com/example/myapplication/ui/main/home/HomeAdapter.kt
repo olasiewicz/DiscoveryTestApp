@@ -52,6 +52,7 @@ class HomeAdapter(val onClicked: (Any) -> Unit) :
                     layoutParent.setOnClickListener { onClicked(item) }
                     layoutAuthor.visibility = View.GONE
                     layoutViews.visibility = View.VISIBLE
+                    imagePlay.visibility = View.VISIBLE
                     tvViews.text = item.views.toString()
 
                 }
@@ -66,6 +67,7 @@ class HomeAdapter(val onClicked: (Any) -> Unit) :
                     layoutParent.setOnClickListener { onClicked(item) }
                     layoutAuthor.visibility = View.VISIBLE
                     layoutViews.visibility = View.GONE
+                    imagePlay.visibility = View.GONE
                     tvAuthor.text = item.author
                     tvDate.text = item.date
                 }
