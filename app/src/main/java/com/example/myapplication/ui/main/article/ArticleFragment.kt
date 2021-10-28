@@ -50,6 +50,7 @@ class ArticleFragment : Fragment() {
             tvAuthor.text = args.author
             tvDate.text = args.date
             tvTeaser.text = args.teaser
+            tvSport.text = args.sportName
             imageBack.setOnClickListener{
                findNavController().navigate(ArticleFragmentDirections.actionArticleFragment2ToHomeFragment())
             }
